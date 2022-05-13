@@ -1,12 +1,25 @@
-'use strict';
+describe("PhoneCat Application", function () {
+  describe("phoneList", function () {
+    beforeEach(function () {
+      browser.get("index.html");
+    });
 
-// AngularJS E2E Testing Guide:
-// https://docs.angularjs.org/guide/e2e-testing
+    it("should filter the phone list as a user types into the search box", function () {
+      var phoneList = element.all(by.repeater("phone in $ctrl.phones"));
+      var query = element(by.model("$ctrl.query"));
 
-describe('My app', function() {
+      // Default length of phoneList
+      expect(phoneList.count()).toBe(3);
 
-  beforeEach(function() {
-    browser.get('index.html');
+      // Checking length when query 'nexus'
+      query.sendKeys("nexus");
+      expect(phoneList.count()).toBe(1);
+
+      query.clear();
+
+      // Checking length when query 'motorola'
+      query.sendKeys("motorola");
+      expect(phoneList.count()).toBe(2);
+    });
   });
-
 });
