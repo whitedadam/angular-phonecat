@@ -3,8 +3,12 @@ describe("phoneDetail", function () {
   beforeEach(module("phoneDetail"));
 
   // test the controller
-  describe("PhoneDetailController", function () {
+  describe("controller", function () {
     var $httpBackend, ctrl;
+    var xyzPhoneData = {
+      name: "phone xyz",
+      images: ["image/url1.png", "image/url2.png"],
+    };
 
     beforeEach(inject(function (
       $componentController,
@@ -12,7 +16,7 @@ describe("phoneDetail", function () {
       $routeParams
     ) {
       $httpBackend = _$httpBackend_;
-      $httpBackend.expectGET("phones/xyz.json").respond({ name: "phone xyz" });
+      $httpBackend.expectGET("phones/xyz.json").respond(xyzPhoneData);
 
       $routeParams.phoneId = "xyz";
       ctrl = $componentController("phoneDetail");
@@ -22,7 +26,7 @@ describe("phoneDetail", function () {
       expect(ctrl.phone).toBeUndefined();
 
       $httpBackend.flush();
-      expect(ctrl.phone).toEqual({ name: "phone xyz" });
+      expect(ctrl.phone).toEqual(xyzPhoneData);
     });
   });
 });
