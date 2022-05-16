@@ -1,1 +1,1 @@
-angular.module("phone-List", []);
+angular.module("phone-List", ["core.phone"]);
